@@ -1,11 +1,10 @@
-import bitcoinlib
 from bitcoinlib.encoding import pubkeyhash_to_addr, addr_to_pubkeyhash
 from bitcoinlib.keys import Key, HDKey
-from bitcoinlib.transactions import mktx, sign_tx
+from bitcoinlib.transactions import Transaction
 from bitcoinlib.wallets import Wallet
 
 # Introdu adresa Bitcoin pentru care dorești să obții coordonatele ECDSA
-address = "113324vM6NBar2q72w6iDCdQvPnPQw8Tvw"
+address = "19D8wvqt8iSSXe3AmBZeLZRyEKS4EXPnZ3"
 
 # Transformă adresa în formatul necesar pentru utilizarea în biblioteca bitcoinlib
 address_bytes = bytes.fromhex(addr_to_pubkeyhash(address))
