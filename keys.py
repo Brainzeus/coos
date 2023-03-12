@@ -7,7 +7,8 @@ from bitcoinlib.wallets import Wallet
 address = "19D8wvqt8iSSXe3AmBZeLZRyEKS4EXPnZ3"
 
 # Transformă adresa în formatul necesar pentru utilizarea în biblioteca bitcoinlib
-address_bytes = bytes.fromhex(addr_to_pubkeyhash(address).decode())
+address_bytes = bytes.fromhex(addr_to_pubkeyhash(address.encode('ISO-8859-1')))
+
 
 
 # Creează o cheie privată aleatorie utilizând biblioteca bitcoinlib
