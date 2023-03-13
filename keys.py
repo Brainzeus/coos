@@ -5,7 +5,8 @@ import hashlib
 address = "19D8wvqt8iSSXe3AmBZeLZRyEKS4EXPnZ3"
 
 # Transformă adresa în formatul necesar pentru utilizarea în biblioteca bitcoin
-address_bytes = bitcoin.base58.decode_check(address)[1:]
+hrp, witver, witprog = bitcoin.bech32.decode(address)
+address_bytes = bitcoin.bech32.convertbits(witprog, 5, 8, False)
 
 # Creează o cheie privată aleatorie utilizând biblioteca bitcoin
 private_key = bitcoin.random_key()
