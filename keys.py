@@ -1,23 +1,17 @@
 import bitcoin
-import hashlib
+import ecdsa
 
-# Introdu adresa Bitcoin pentru care dorești să obții coordonatele ECDSA
-address = "19D8wvqt8iSSXe3AmBZeLZRyEKS4EXPnZ3"
+# definim adresa Bitcoin
+addr = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'
 
-# Transformă adresa în formatul necesar pentru utilizarea în biblioteca bitcoin
-hrp, witver, witprog = bitcoin.bech32.decode(address)
-address_bytes = bitcoin.bech32.convertbits(witprog, 5, 8, False)
+# convertim adresa in format binar
+addr_bin = bitcoin.b58check_to_bin(addr)
 
-# Creează o cheie privată aleatorie utilizând biblioteca bitcoin
-private_key = bitcoin.random_key()
+# generam cheia publica si punctul de pe curba SECP256k1
+vk = ecdsa.VerifyingKey.from_string(addr_bin[1:], curve=ecdsa.SECP256k1)
+x, y = vk.pubkey.point.x(), vk.pubkey.point.y()
 
-# Creează o cheie publică pe baza cheii private utilizând biblioteca bitcoin
-public_key = bitcoin.encode_pubkey(bitcoin.privkey_to_pubkey(private_key), "hex")
-
-# Calculează coordonatele ECDSA x și y pe baza cheii publice utilizând biblioteca bitcoin
-x, y = bitcoin.decode_pubkey(public_key)
-
-# Afișează coordonatele ECDSA x și y
-print("Coordonate ECDSA x și y:")
-print(f"x: {x}")
-print(f"y: {y}")
+# afisam coordonatele in format zecimal
+print(f'Coordonatele pentru adresa {addr} sunt:')
+print(f'x = {x}')
+print(f'y = {y}')
